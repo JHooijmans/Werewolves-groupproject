@@ -2,7 +2,7 @@ using System;
 
 namespace Domain
 {
-    public class Villager : Role
+    public abstract class Role
     {
         
     }

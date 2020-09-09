@@ -2,7 +2,7 @@ using System;
 
 namespace Domain
 {
-    public class Werewolf
+    public class Werewolf : Role
     {
         
     }
