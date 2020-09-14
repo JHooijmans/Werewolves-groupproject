@@ -1,5 +1,5 @@
 using System;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Domain
 {
@@ -32,6 +32,7 @@ namespace Domain
         }
 
         string[] Shuffle(List<string> namesList) {
+            Random random = new Random();
             int counter = 0;
             string[] namesArray = new string[namesList.Count];
             foreach (string name in namesList)
@@ -40,12 +41,12 @@ namespace Domain
                 counter++;
             }
             string tempString = "";
-            for (i = namesList.Count -1; i > 0; i--)
-            {
-                int j = Random.Next(i + 1);
+            int i;
+            for (i = namesList.Count -1; i > 0; i--){
+                int j = random.Next(i + 1);
                 tempString = namesArray[i];
                 namesArray[i] = namesArray[j];
-                namesArray[j] = temp;
+                namesArray[j] = tempString;
             }
             return namesArray;
         }
