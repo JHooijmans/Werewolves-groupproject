@@ -41,8 +41,7 @@ namespace Domain
                 counter++;
             }
             string tempString = "";
-            int i;
-            for (i = namesList.Count -1; i > 0; i--){
+            for (int i = namesList.Count -1; i > 0; i--){
                 int j = random.Next(i + 1);
                 tempString = namesArray[i];
                 namesArray[i] = namesArray[j];
