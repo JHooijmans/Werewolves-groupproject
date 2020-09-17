@@ -2,7 +2,8 @@ using NUnit.Framework;
 
 namespace DomainTests
 {
-    public class Tests
+    [TestFixture]
+    public class DomainTests
     {
         [SetUp]
         public void Setup()

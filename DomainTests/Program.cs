@@ -2,7 +2,7 @@
 using NUnit.Framework;
 
 
-namespace Domain
+namespace DomainTests
 {
     class Program
     {
