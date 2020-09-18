@@ -1,5 +1,5 @@
 using System;
-using Domain.GameState;
+using Domain;
 using NUnit.Framework;
 
 namespace DomainTests
