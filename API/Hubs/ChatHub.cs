@@ -9,5 +9,10 @@ namespace API.Hubs
         {
             await Clients.All.SendAsync("setClientMessage", "A connection with ID '" + connectionId + "' has just connected");
         }
+
+        public async Task SendToAll(string name, string message)
+        {
+            await Clients.All.SendAsync("sendToAll", name + ": " + message);
+        }
     }
 }
