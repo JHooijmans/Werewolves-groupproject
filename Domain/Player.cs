@@ -8,8 +8,9 @@ namespace Domain
 
         bool alive = true;
 
-        bool hasVoted = false;
+        bool voted = false;
 
+        // Votes received this round.
         int votes = 0;
 
         Role role;
@@ -19,32 +20,26 @@ namespace Domain
             this.role = role;
         }
 
+        // Vote on other player.
         public void vote(Player player) {
-            if (!this.hasVoted) {
-                player.addVote(this);
-                this.hasVoted = true;
+            if (!this.voted) {
+                player.addVote();
+                this.voted = true;
             }
         }
 
-        public void addVote(Player player){
-            if (!this.checkHasVoted()) {
-                this.votes += 1;
-            } else {
-                throw new System.Exception("This player cannot declare a second vote!");
-            }
+        // Receive a vote.
+        public void addVote(){
+            this.votes += 1;
         }
 
-        public void HasVoted() {
-            this.hasVoted = true;
-        }
-
-        public bool checkHasVoted() {
-            return this.hasVoted;
+        public bool checkIfVoted() {
+            return this.voted;
         }
 
         public void resetVotes() {
             this.votes = 0;
-            this.hasVoted = false;
+            this.voted = false;
         }
 
         public string getName() {
