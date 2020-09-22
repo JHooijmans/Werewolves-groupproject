@@ -33,13 +33,17 @@ namespace Domain
             this.votes += 1;
         }
 
-        public bool checkIfVoted() {
+        public bool hasVoted() {
             return this.voted;
         }
 
         public void resetVotes() {
             this.votes = 0;
             this.voted = false;
+        }
+
+        public int getVotes(){
+            return this.votes;
         }
 
         public string getName() {
