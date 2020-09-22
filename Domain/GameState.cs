@@ -7,6 +7,36 @@ namespace Domain
     {
         private bool day = true;
 
+        Player[] players;
+
+        public GameState(string[] playerNames)
+        {
+            this.playerNames = playerNames;
+            int length = playerNames.Length;
+            this.players = new Player[length];
+            int[] roleDivision = numberPerRoles(length);
+            Role[] shuffledRoles = Shuffle(roleDivision);
+            for (int i = 0; i < length; i++) {
+                // Assign villager rolls first, then werewolf roles to the remaining players.                                         
+                this.players[i] = new Player(playerNames[i], shuffledRoles[i]);
+            }
+        }
+
+        private int[] numberPerRoles(int nrOfPlayers) {
+            int[] nrOfRoles = new int[2];
+            if (nrOfPlayers <= 8) {
+                nrOfRoles[0] = nrOfPlayers-1;
+                nrOfRoles[1] = 1;
+            } else if (nrOfPlayers >= 9 && nrOfPlayers <= 12) {
+                nrOfRoles[0] = nrOfPlayers-2;
+                nrOfRoles[1] = 2;
+            } else {
+                nrOfRoles[0] = nrOfPlayers-3;
+                nrOfRoles[1] = 3;
+            }
+            return nrOfRoles;
+        }
+        
         public bool getDay() {
             return this.day;
         }
@@ -14,47 +44,38 @@ namespace Domain
         public void changeDay() {
             this.day = !this.day;
         }
-        
-        List<string> playerNames = new List<string>();
-
-        Player[] players;
 
         public Player[] getPlayers(){
             return this.players;
         }
+        public string[] playerNames;
 
-        public List<string> getPlayerNames() {
+        public string[] getPlayerNames() {
             return this.playerNames;
         }
 
-        public void addPlayerName(string playerName) {
-            this.playerNames.Add(playerName);
-        }
-
-        string[] Shuffle(List<string> namesList) {
+        // Shuffle the list of player names so the assignment of the rolls happens at random.
+        public static Role[] Shuffle(int[] nrOfRoles) {
             Random random = new Random();
-            int counter = 0;
-            string[] namesArray = new string[namesList.Count];
-            foreach (string name in namesList)
-            {
-                namesArray[counter] = name;
-                counter++;
+            int length = nrOfRoles[0] + nrOfRoles[1];
+            Role[] roleArray = new Role[length];
+            for (int i = 0; i < length; i++){
+                if (i < nrOfRoles[0]) {
+                    roleArray[i] = new Villager();
+                } else {
+                    roleArray[i] = new Werewolf();
+                }
             }
-            string tempString = "";
-            for (int i = namesList.Count -1; i > 0; i--){
+            Role tempRole;
+            for (int i = roleArray.Length -1; i > 0; i--){
                 int j = random.Next(i + 1);
-                tempString = namesArray[i];
-                namesArray[i] = namesArray[j];
-                namesArray[j] = tempString;
+                tempRole = roleArray[i];
+                roleArray[i] = roleArray[j];
+                roleArray[j] = tempRole;
             }
-            return namesArray;
+            return roleArray;
         }
 
-        public void GameStart() {
-            int length = this.playerNames.Count;
-            this.players = new Player[length];
-            string[] names = Shuffle(this.playerNames);
-            
-        }
+
     }
 }
