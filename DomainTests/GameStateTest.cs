@@ -16,14 +16,13 @@ namespace DomainTests
             Assert.IsTrue(result);
         }
 
-        [TestCase(new int[] {7, 1})]
-        [TestCase(new int[] {7, 2})]
-        [TestCase(new int[] {10, 2})]
-        [TestCase(new int[] {10, 3})]
-        public void TestShuffleMethod(int[] nPlayersPerRole)
+        [TestCase(8)]
+        [TestCase(9)]
+        [TestCase(12)]
+        [TestCase(13)]
+        public void TestRoleShuffleMethod(int nPlayers)
         {
-            int nPlayers = nPlayersPerRole[0] + nPlayersPerRole[1];
-            Role[] roleArray = GameState.Shuffle(nPlayersPerRole);
+            Role[] roleArray = GameState.roleShuffle(nPlayers);
             Assert.AreEqual(roleArray.Length, nPlayers);
             int werewolfCount = 0;
             for (int i = 0; i < roleArray.Length; i++) {

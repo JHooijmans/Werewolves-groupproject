@@ -14,27 +14,10 @@ namespace Domain
             this.playerNames = playerNames;
             int length = playerNames.Length;
             this.players = new Player[length];
-            int[] roleDivision = numberPerRoles(length);
-            Role[] shuffledRoles = Shuffle(roleDivision);
-            for (int i = 0; i < length; i++) {
-                // Assign villager rolls first, then werewolf roles to the remaining players.                                         
+            Role[] shuffledRoles = roleShuffle(length);
+            for (int i = 0; i < length; i++) {                                         
                 this.players[i] = new Player(playerNames[i], shuffledRoles[i]);
             }
-        }
-
-        private int[] numberPerRoles(int nrOfPlayers) {
-            int[] nrOfRoles = new int[2];
-            if (nrOfPlayers <= 8) {
-                nrOfRoles[0] = nrOfPlayers-1;
-                nrOfRoles[1] = 1;
-            } else if (nrOfPlayers >= 9 && nrOfPlayers <= 12) {
-                nrOfRoles[0] = nrOfPlayers-2;
-                nrOfRoles[1] = 2;
-            } else {
-                nrOfRoles[0] = nrOfPlayers-3;
-                nrOfRoles[1] = 3;
-            }
-            return nrOfRoles;
         }
         
         public bool getDay() {
@@ -54,10 +37,10 @@ namespace Domain
             return this.playerNames;
         }
 
-        // Shuffle the list of player names so the assignment of the rolls happens at random.
-        public static Role[] Shuffle(int[] nrOfRoles) {
+        // Shuffle creare and shuffle a roles Array for random role assignment.
+        public static Role[] roleShuffle(int length) {
+            int[] nrOfRoles = getNumberOfPlayersPerRole(length);
             Random random = new Random();
-            int length = nrOfRoles[0] + nrOfRoles[1];
             Role[] roleArray = new Role[length];
             for (int i = 0; i < length; i++){
                 if (i < nrOfRoles[0]) {
@@ -76,6 +59,20 @@ namespace Domain
             return roleArray;
         }
 
-
+        // Return number of players per roll based on the amount of players.
+        private static int[] getNumberOfPlayersPerRole(int nPlayers) {
+            int[] nPlayersPerRole = new int[2];
+            if (nPlayers <= 8) {
+                nPlayersPerRole[0] = nPlayers-1;
+                nPlayersPerRole[1] = 1;
+            } else if (nPlayers >= 9 && nPlayers <= 12) {
+                nPlayersPerRole[0] = nPlayers-2;
+                nPlayersPerRole[1] = 2;
+            } else {
+                nPlayersPerRole[0] = nPlayers-3;
+                nPlayersPerRole[1] = 3;
+            }
+            return nPlayersPerRole;
+        }
     }
 }
