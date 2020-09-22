@@ -74,5 +74,47 @@ namespace Domain
             }
             return nPlayersPerRole;
         }
+
+        public void castVote(Player voter, Player target) {
+            voter.vote(target);
+        }
+
+        public bool checkIfAllPlayersVoted() {
+            foreach(Player player in this.players) {
+                if(!player.hasVoted()){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public Player findHangman() {
+            Player hangman = this.players[0];
+            int votes = 0;
+            bool draw = false;
+            foreach(Player player in this.players) {
+                if (player.getVotes() > votes) {
+                    votes = player.getVotes();
+                    hangman = player;
+                    draw = false;
+                } else if (player.getVotes() == votes) {
+                    draw = true;
+                }
+            }
+            if (draw){
+                return null;
+            } else {
+                hangman.kill();
+                this.changeDay();
+                return hangman;
+            }
+        }
+
+        public void resetAllVotes(){
+            foreach(Player player in this.players) {
+                player.resetVotes();
+            }
+        }
+        
     }
 }
