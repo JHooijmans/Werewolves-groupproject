@@ -19,10 +19,18 @@ namespace Domain
             this.role = role;
         }
 
-        public void vote(Player voter) {
-            if (!voter.checkHasVoted()) {
+        public void vote(Player player) {
+            if (!this.hasVoted) {
+                player.addVote(this);
+                this.hasVoted = true;
+            }
+        }
+
+        public void addVote(Player player){
+            if (!this.checkHasVoted()) {
                 this.votes += 1;
-                voter.HasVoted();
+            } else {
+                throw new System.Exception("This player cannot declare a second vote!");
             }
         }
 
