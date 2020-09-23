@@ -1,20 +1,38 @@
 import React, { useEffect, useState } from 'react';
 import * as signalR from "@microsoft/signalr";
 import App from '../../App';
+import {sendToAllTest, hubConnection} from '../../ConnectionService';
+
 
 export function Chat() {
 
     const [message, setMessage] = useState<string>('');
     const [messages, setMessages] = useState<string[]>([]);
+  
+    // useEffect(() => { 
+    //     setMessages(m => [...m, receivedMessage]);
+    // });
 
-    // hubConnection.on("sendToAll", 
-    // need to get the hubconnection variable in here from App.tsx; because then I can set what happens when it receives a message
+    useEffect(() => {
+        hubConnection.on("sendToAll", receivedMessage => {
+        setMessages(m => [...m, receivedMessage]);
+        });
+    });
+      
 
-
-
+    const handleMessage = () => {
+        sendToAllTest(message);
+        setMessage('');
+      }
 
     return (
-        <>
+        <><input 
+        type="text"
+        value={message}
+        onChange={e => setMessage(e.target.value)}
+        maxLength={255}
+        />
+        <button onClick={handleMessage}>Send It!</button><p>{messages}</p>
         </>
     )
 }

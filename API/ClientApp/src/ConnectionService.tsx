@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import * as signalR from "@microsoft/signalr";
+import {Chat} from './components/chat/Chat';
 
-export function thingie () {
 
-}
+export function sendToAllTest (message: string) {
+  hubConnection.invoke("sendToAll", hubConnection.connectionId, message);
+};
 
  
   // Builds the SignalR connection, mapping it to /chat
@@ -45,3 +47,5 @@ export function thingie () {
  
       return <p>{clientMessage}</p>
     };
+
+    export {hubConnection};
