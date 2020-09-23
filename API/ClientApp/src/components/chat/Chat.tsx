@@ -17,11 +17,13 @@ export function Chat() {
         hubConnection.on("sendToAll", receivedMessage => {
         setMessages(m => [...m, receivedMessage]);
         });
-    });
+    }, messages);
       
 
     const handleMessage = () => {
-        sendToAllTest(message);
+        if (message != '') {
+            sendToAllTest(message);
+        };
         setMessage('');
       }
 
