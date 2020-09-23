@@ -76,12 +76,18 @@ namespace Domain
         }
 
         public void castVote(Player voter, Player target) {
-            voter.vote(target);
+            if(this.day && !voter.hasVoted()) {
+                voter.vote(target);
+            } else if ((!voter.hasVoted()) && voter.getRole().GetType().Equals(typeof(Werewolf))) {
+                voter.vote(target);
+            }
         }
 
         public bool checkIfAllPlayersVoted() {
             foreach(Player player in this.players) {
-                if(!player.hasVoted()){
+                if(this.day && !player.hasVoted()){
+                    return false;
+                } else if ((!player.hasVoted()) && player.getRole().GetType().Equals(typeof(Werewolf))) {
                     return false;
                 }
             }
