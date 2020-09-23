@@ -1,9 +1,8 @@
+# image: microsoft/dotnet:latest
 
-image: microsoft/dotnet:latest
-
-stages:
-    - build
-    # - test
+# stages:
+#     - build
+#     # - test
 
 # variables:
 #     test: "Example.Test"
@@ -12,10 +11,10 @@ stages:
 #     - "cd src"
 #     - "dotnet restore"
 
-build:
-    stage: build
-    script:
-        - "dotnet build"
+# build:
+#     stage: build
+#     script:
+#         - "dotnet build"
 
 # test:
 #     stage: test
