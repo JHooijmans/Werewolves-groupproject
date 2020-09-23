@@ -67,5 +67,10 @@ namespace Domain
         public void kill(){
             this.alive = false;
         }
+
+        public Player getVoteTarget()
+        {
+            return voteTarget;
+        }
     }
 }
