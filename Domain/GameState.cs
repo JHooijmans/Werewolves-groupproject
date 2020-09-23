@@ -37,20 +37,12 @@ namespace Domain
             return this.playerNames;
         }
 
-        // Shuffle creare and shuffle a roles Array for random role assignment.
+        // Shuffle a roles Array for random role assignment.
         public static Role[] roleShuffle(int length) {
-            int[] nrOfRoles = getNumberOfPlayersPerRole(length);
+            Role[] roleArray = getRoleArray(length);
             Random random = new Random();
-            Role[] roleArray = new Role[length];
-            for (int i = 0; i < length; i++){
-                if (i < nrOfRoles[0]) {
-                    roleArray[i] = new Villager();
-                } else {
-                    roleArray[i] = new Werewolf();
-                }
-            }
             Role tempRole;
-            for (int i = roleArray.Length -1; i > 0; i--){
+            for (int i = length -1; i > 0; i--){
                 int j = random.Next(i + 1);
                 tempRole = roleArray[i];
                 roleArray[i] = roleArray[j];
@@ -59,8 +51,8 @@ namespace Domain
             return roleArray;
         }
 
-        // Return number of players per roll based on the amount of players.
-        private static int[] getNumberOfPlayersPerRole(int nPlayers) {
+        // Return role array with number each role based on the amount of players.
+        private static Role[] getRoleArray(int nPlayers) {
             int[] nPlayersPerRole = new int[2];
             if (nPlayers <= 8) {
                 nPlayersPerRole[0] = nPlayers-1;
@@ -72,7 +64,15 @@ namespace Domain
                 nPlayersPerRole[0] = nPlayers-3;
                 nPlayersPerRole[1] = 3;
             }
-            return nPlayersPerRole;
+            Role[] roleArray = new Role[nPlayers];
+            for (int i = 0; i < nPlayers; i++){
+                if (i < nPlayersPerRole[0]) {
+                    roleArray[i] = new Villager();
+                } else {
+                    roleArray[i] = new Werewolf();
+                }
+            }
+            return roleArray;
         }
 
         public void castVote(Player voter, Player target) {
@@ -89,7 +89,7 @@ namespace Domain
         }
 
         public Player findHangman() {
-            Player hangman = this.players[0];
+            Player hangman = null;
             int votes = 0;
             bool draw = false;
             foreach(Player player in this.players) {
