@@ -6,6 +6,8 @@ namespace Domain
     {
         string name;
 
+        Role role;
+
         bool alive = true;
 
         bool voted = false;
@@ -13,7 +15,7 @@ namespace Domain
         // Votes received this round.
         int votes = 0;
 
-        Role role;
+        Player voteTarget = null;
 
         public Player(string name, Role role) {
             this.name = name;
@@ -22,7 +24,8 @@ namespace Domain
 
         // Vote on other player.
         public void vote(Player player) {
-            if (!this.voted) {
+            if (this.alive && !this.voted && player.checkPulse()) {
+                this.voteTarget = player;
                 player.addVote();
                 this.voted = true;
             }
@@ -39,6 +42,7 @@ namespace Domain
 
         public void resetVotes() {
             this.votes = 0;
+            this.voteTarget = null;
             this.voted = false;
         }
 
