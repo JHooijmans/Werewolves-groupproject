@@ -13,6 +13,9 @@ namespace Domain
         // Votes received this round.
         int votes = 0;
 
+        //Keeping track of who the player voted for can be both more object oriented (so neat coding) or important for gameplay
+        Player voteTarget = null;
+
         Role role;
 
         public Player(string name, Role role) {
@@ -23,6 +26,7 @@ namespace Domain
         // Vote on other player.
         public void vote(Player player) {
             if (!this.voted) {
+                this.voteTarget = player;
                 player.addVote();
                 this.voted = true;
             }
@@ -39,6 +43,7 @@ namespace Domain
 
         public void resetVotes() {
             this.votes = 0;
+            this.voteTarget = null;
             this.voted = false;
         }
 

@@ -14,5 +14,10 @@ namespace API.Hubs
         {
             await Clients.All.SendAsync("sendToAll", connectionId + ": " + message);
         }
+
+        // public async Task SendToWerewolves() 
+        // {
+        //     await Clients.AllExcept
+        // }
     }
 }
