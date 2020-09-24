@@ -42,9 +42,8 @@ namespace DomainTests
 
         [TestCase("Werewolf")]
         [TestCase("Villager")]
-
-        public void testGetPlayersWithRole(String roleName) {
-            
+        public void testGetPlayersWithRole(String roleName) 
+        {
             // Arrange
             Role role;
             if (roleName.Equals("Werewolf")) {
@@ -52,8 +51,6 @@ namespace DomainTests
             } else {
                 role = new Villager();
             }
-
-
             String[] playerNames = { "test", "test", "test", "test", "test", "test", "test", "test", "test" };
             GameState gs = new GameState(playerNames);
 
@@ -69,9 +66,7 @@ namespace DomainTests
         [Test]
         public void testCheckIfAllWolvesDead()
         {
-
             // Arrange
-
             String[] playerNames = {"test","test", "test", "test", "test", "test", "test", "test", "test"};
             GameState gs = new GameState(playerNames);
 
@@ -106,20 +101,3 @@ namespace DomainTests
     }
 
 }
-
-//namespace DomainTests
-//{
-//    public class DomainTests
-//    {
-//        [SetUp]
-//        public void Setup()
-//        {
-//        }
-
-//        [Test]
-//        public void Test1()
-//        {
-//            Assert.Pass();
-//        }
-//    }
-//}
