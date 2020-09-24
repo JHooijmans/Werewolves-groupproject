@@ -7,7 +7,13 @@ export function sendToAllTest (message: string) {
   hubConnection.invoke("sendToAll", hubConnection.connectionId, message);
 };
 
- 
+//Give the user's chosen nickname to the API along with the connectionId so they can be linked, but wait until the server's done
+//before continuing, as the nickname might be taken; return a boolean whether the name's already taken
+export function newUserJoin (userName: string): Promise<boolean> {
+  const nickNameTaken:any = hubConnection.invoke<boolean>("newUserJoin", hubConnection.connectionId, userName);  
+  return nickNameTaken;
+}
+
   // Builds the SignalR connection, mapping it to /chat
   const hubConnection = new signalR.HubConnectionBuilder()
   .withUrl("/chat")

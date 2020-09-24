@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import * as signalR from "@microsoft/signalr";
-import App from '../../App';
 import {sendToAllTest, hubConnection} from '../../ConnectionService';
 
 
@@ -25,7 +23,7 @@ export function Chat() {
             sendToAllTest(message);
         };
         setMessage('');
-      }
+    };
 
     return (
         <><input 
@@ -36,5 +34,5 @@ export function Chat() {
         />
         <button onClick={handleMessage}>Send It!</button><p>{messages}</p>
         </>
-    )
-}
+    );
+};
