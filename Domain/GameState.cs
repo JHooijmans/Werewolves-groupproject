@@ -9,6 +9,8 @@ namespace Domain
 
         private Player[] players;
 
+        private string[] playerNames;
+
         public GameState(string[] playerNames)
         {
             this.playerNames = playerNames;
@@ -31,7 +33,6 @@ namespace Domain
         public Player[] getPlayers(){
             return this.players;
         }
-        public string[] playerNames;
 
         public string[] getPlayerNames() {
             return this.playerNames;
@@ -47,7 +48,7 @@ namespace Domain
                     playerList.Add(player);
                 }
             }
-            Player[] playerArray = new Player[playerList.Count()];
+            Player[] playerArray = new Player[playerList.Count];
             int counter = 0;
             foreach(Player player in playerList)
             {
@@ -67,7 +68,7 @@ namespace Domain
                     playerList.Add(player);
                 }
             }
-            Player[] playerArray = new Player[playerList.Count()];
+            Player[] playerArray = new Player[playerList.Count];
             int counter = 0;
             foreach(Player player in playerList)
             {
@@ -160,6 +161,30 @@ namespace Domain
             foreach(Player player in this.players) {
                 player.resetVotes();
             }
+        }
+
+        public bool checkIfAllVillagersDead() {
+            Player[] players = this.players;
+            foreach (Player player in players)
+            {
+                if(player.checkPulse() && player.getRole().GetType().Equals(typeof(Villager)))
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool checkIfAllWolfsDead() {
+            Player[] players = this.players;
+            foreach (Player player in players)
+            {
+                if(player.checkPulse() && player.getRole().GetType().Equals(typeof(Werewolf)))
+                {
+                    return false;
+                }
+            }
+            return true;
         }
         
     }
