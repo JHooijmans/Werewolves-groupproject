@@ -7,7 +7,7 @@ namespace Domain
     {
         private bool day = true;
 
-        Player[] players;
+        private Player[] players;
 
         public GameState(string[] playerNames)
         {
@@ -35,6 +35,46 @@ namespace Domain
 
         public string[] getPlayerNames() {
             return this.playerNames;
+        }
+
+        public Player[] getWerewolfs() {
+            Player[] players = this.players;
+            List<Player> playerList = new List<Player>();
+            foreach (Player player in players)
+            {
+                if(player.getRole().GetType().Equals(typeof(Werewolf)))
+                {
+                    playerList.Add(player);
+                }
+            }
+            Player[] playerArray = new Player[playerList.Count()];
+            int counter = 0;
+            foreach(Player player in playerList)
+            {
+                playerArray[counter] = player;
+                counter++;
+            }
+            return playerArray;
+        }
+
+        public Player[] getAlivePlayers() {
+            Player[] players = this.players;
+            List<Player> playerList = new List<Player>();
+            foreach (Player player in players)
+            {
+                if(player.checkPulse())
+                {
+                    playerList.Add(player);
+                }
+            }
+            Player[] playerArray = new Player[playerList.Count()];
+            int counter = 0;
+            foreach(Player player in playerList)
+            {
+                playerArray[counter] = player;
+                counter++;
+            }
+            return playerArray;
         }
 
         // Shuffle a roles Array for random role assignment.
