@@ -38,12 +38,12 @@ namespace Domain
             return this.playerNames;
         }
 
-        public Player[] getWerewolfs() {
+        public Player[] getPlayersWithRole(Role role) {
             Player[] players = this.players;
             List<Player> playerList = new List<Player>();
             foreach (Player player in players)
             {
-                if(player.getRole().GetType().Equals(typeof(Werewolf)))
+                if(player.getRole().GetType().Equals(role.GetType()))
                 {
                     playerList.Add(player);
                 }
