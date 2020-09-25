@@ -5,31 +5,31 @@ namespace API
 {
     public class GameAPI
     {
-        private Dictionary<string, string> playerDict = new Dictionary<string, string>();
+        private static Dictionary<string, string> playerDict = new Dictionary<string, string>();
+        private static GameState gameState;
 
-        public string getPlayerConnectionID(string playerName){
-            return this.playerDict[playerName];
+
+        public static string getPlayerConnectionID(string playerName){
+            return playerDict[playerName];
         }
 
-        private GameState gameState;
-
-        public GameState getGameState() {
-            return this.gameState;
+        public static GameState getGameState() {
+            return gameState;
         }
 
-        public void addPlayer(string name, string connectionID)
+        public static void addPlayer(string name, string connectionID)
         {
             playerDict.Add(name, connectionID);
         }
         
 
-        public void startGame()
+        public static void startGame()
         {
             string[] names = getPlayerNames();
-            this.gameState = new GameState(names);
+            gameState = new GameState(names);
         }
 
-        private string[] getPlayerNames(){
+        public static string[] getPlayerNames(){
             List<string> names = new List<string>(playerDict.Keys);
             string[] playerNames = new string[names.Count];
             int count = 0;
@@ -43,7 +43,12 @@ namespace API
 
         public Dictionary<string, string> getPlayerDict()
         {
-            return this.playerDict;
+            return playerDict;
+        }
+
+        public static bool containsKey(string name)
+        {
+            return playerDict.ContainsKey(name);
         }
     }
 }

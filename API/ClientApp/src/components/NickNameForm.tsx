@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {newUserJoin} from '../ConnectionService';
+import {addNewUser} from '../ConnectionService';
 
 
 export function NickNameForm () {
@@ -11,7 +11,7 @@ export function NickNameForm () {
     const handleNickName = () => {
         if (nickName != '') {
             setRetryNick('');
-            const nickTaken:Promise<boolean> = newUserJoin(nickName);
+            const nickTaken:Promise<boolean> = addNewUser(nickName);
             if (nickTaken) {
                 setNickName('');
                 setRetryNick('The name you entered was already taken; please enter a new name.');
