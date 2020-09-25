@@ -3,7 +3,7 @@ using System.Threading.Tasks;
  
 namespace API.Hubs
 {
-    public class ChatHub : Hub
+    public class GameHub : Hub
     {
         public async Task SendConnectionId(string connectionId)
         {

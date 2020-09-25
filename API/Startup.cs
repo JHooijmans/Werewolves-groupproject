@@ -53,7 +53,7 @@ namespace API
             app.UseRouting();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<ChatHub>("/chat");
+                endpoints.MapHub<GameHub>("/game");
  
                 endpoints.MapControllerRoute(
                     name: "default",
@@ -74,7 +74,7 @@ namespace API
             {
                  
                 var serviceProvider = app.ApplicationServices;
-                var chatHub = (IHubContext<ChatHub>)serviceProvider.GetService(typeof(IHubContext<ChatHub>));
+                var chatHub = (IHubContext<GameHub>)serviceProvider.GetService(typeof(IHubContext<GameHub>));
  
                 var timer = new System.Timers.Timer(1000);
                 timer.Enabled = true;

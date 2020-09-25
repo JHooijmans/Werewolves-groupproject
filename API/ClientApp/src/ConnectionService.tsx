@@ -14,15 +14,15 @@ export function newUserJoin (userName: string): Promise<boolean> {
   return nickNameTaken;
 }
 
-  // Builds the SignalR connection, mapping it to /chat
+  // Builds the SignalR connection, mapping it to /game
   const hubConnection = new signalR.HubConnectionBuilder()
-  .withUrl("/chat")
+  .withUrl("/game")
   .configureLogging(signalR.LogLevel.Information)  
   .build();
  
   // Starts the SignalR connection
   hubConnection.start().then(a => {
-    // Once started, invokes the sendConnectionId in our ChatHub inside our ASP.NET Core application.
+    // Once started, invokes the sendConnectionId in our GameHub inside our ASP.NET Core application.
     if (hubConnection.connectionId) {
       hubConnection.invoke("sendConnectionId", hubConnection.connectionId);
     }   
