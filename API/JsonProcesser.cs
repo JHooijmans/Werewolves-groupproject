@@ -7,14 +7,14 @@ namespace API
 {
     public class JsonProcessor
     {
-        public string getVillagerJson(GameState gs)
+        static public string getVillagerJson(GameState gs)
         {
             VillagerJson villagerJson = new VillagerJson(gs.getPlayers(), gs.getDay());
             return JsonConvert.SerializeObject(villagerJson, Formatting.Indented);
              
         }
 
-        public string getWerewolfJson(GameState gs)
+        static public string getWerewolfJson(GameState gs)
         {
             WerewolfJson werewolfJson = new WerewolfJson(gs.getPlayers(), gs.getDay());
             return JsonConvert.SerializeObject(werewolfJson, Formatting.Indented);

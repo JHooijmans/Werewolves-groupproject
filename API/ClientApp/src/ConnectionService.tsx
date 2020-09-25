@@ -11,11 +11,14 @@ export function sendGameState () {
   hubConnection.invoke("sendGameState");
 };
 
+export function AttemptGameStart() {
+  hubConnection.invoke("AttemptGameStart");
+}
 
 //Give the user's chosen nickname to the API along with the connectionId so they can be linked, but wait until the server's done
 //before continuing, as the nickname might be taken; return a boolean whether the name's already taken
-export function newUserJoin (userName: string): Promise<boolean> {
-  const nickNameTaken:any = hubConnection.invoke<boolean>("newUserJoin", hubConnection.connectionId, userName);  
+export function addNewUser (userName: string): Promise<boolean> {
+  const nickNameTaken:any = hubConnection.invoke<boolean>("addNewUser", hubConnection.connectionId, userName);  
   return nickNameTaken;
 }
 
