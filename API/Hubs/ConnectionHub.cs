@@ -5,7 +5,7 @@ using Domain;
  
 namespace API.Hubs
 {
-    public class GameHub : Hub
+    public class ConnectionHub : Hub
     {
         public async Task SendConnectionId(string connectionId)
         {
@@ -23,7 +23,7 @@ namespace API.Hubs
             bool nickNameTaken = true; 
 
             // await Clients.Caller.SendAsync("nickNameReturn", nickNameTaken + nickName);
-
+            
             return nickNameTaken;
         }
 
