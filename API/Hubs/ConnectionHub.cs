@@ -21,7 +21,7 @@ namespace API.Hubs
             await Clients.All.SendAsync("sendToAll", connectionId + ": " + message);
         }
 
-        public async Task<bool> addNewUser(string connectionId, string nickName)
+        public bool addNewUser(string connectionId, string nickName)
         {
             //hardcoded returnvalue; still missing implementation of collecting the nicknames and checking whether they're taken
             bool nickNameTaken = true;
@@ -49,11 +49,17 @@ namespace API.Hubs
             return nickNameTaken;
         }
 
+        public async Task AttemptGameStart() 
+        {
+            GameAPI.startGame();
+            await Clients.All.SendAsync("AttemptGameStart", JsonProcessor.getWerewolfJson(GameAPI.getGameState()));
+        }
+
         public async Task SendGameState()
         {
-            GameState gameState = new GameState(new string[] { "Olmo", "Bram", "Jasper" });
-            JsonProcessor jsonProcessor = new JsonProcessor();
-            await Clients.All.SendAsync("sendGameState", jsonProcessor.getVillagerJson(gameState));
+            if (GameAPI.getGameState() != null) {
+                await Clients.All.SendAsync("sendGameState", JsonProcessor.getWerewolfJson(GameAPI.getGameState()));
+            }
         }
     }
 }
