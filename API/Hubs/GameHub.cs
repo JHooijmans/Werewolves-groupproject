@@ -1,5 +1,7 @@
 using Microsoft.AspNetCore.SignalR;
 using System.Threading.Tasks;
+using API;
+using Domain;
  
 namespace API.Hubs
 {
@@ -23,6 +25,13 @@ namespace API.Hubs
             // await Clients.Caller.SendAsync("nickNameReturn", nickNameTaken + nickName);
 
             return nickNameTaken;
+        }
+
+        public async Task SendGameState()
+        {
+            GameState gameState = new GameState(new string[] { "Olmo", "Bram", "Jasper" });
+            JsonProcessor jsonProcessor = new JsonProcessor();
+            await Clients.All.SendAsync("sendGameState", jsonProcessor.getVillagerJson(gameState));
         }
     }
 }
