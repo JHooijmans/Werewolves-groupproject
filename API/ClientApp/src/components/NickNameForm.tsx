@@ -7,40 +7,36 @@ export function NickNameForm () {
     const [nickName, setNickName] = useState<string>('');
     const [retryNick, setRetryNick] = useState<string>('');
 
+    let nameIsSet:boolean = false;
 
-    const handleNickName = () => {
+    const handleNickName = async () => {
         if (nickName != '') {
             setRetryNick('');
-            const nickTaken:Promise<boolean> = addNewUser(nickName);
+            const nickTaken = await addNewUser(nickName);
             if (nickTaken) {
                 setNickName('');
                 setRetryNick('The name you entered was already taken; please enter a new name.');
-            };
+            } else nameIsSet = true; 
         };
     };
 
-    return (
-        //When you click the submit button of a form, the connection resets..
+    // useEffect(() => {
+        
+    // });
 
-        // <><form onSubmit={handleNickName}>
-        //     <input 
-        //     type="text" 
-        //     value={nickName} 
-        //     placeholder="Enter Your Name" 
-        //     onChange={e => setNickName(e.target.value)} 
-        //     maxLength={255} 
-        //     />
-        //     <input type="submit" value="Send" />
-        // </form></>
 
-        <><input 
-        type="text"
-        value={nickName}
-        onChange={e => setNickName(e.target.value)}
-        maxLength={255}
-        />
-        <button onClick={handleNickName}>Please enter your name:</button>
-        <p>{retryNick}</p>
-        </>
-    );
+    if (nameIsSet === false) {
+        return (
+
+            <><input 
+            type="text"
+            value={nickName}
+            onChange={e => setNickName(e.target.value)}
+            maxLength={255}
+            />
+            <button onClick={handleNickName}>Please enter your name:</button>
+            <p>{retryNick}</p>
+            </>
+        );
+    } else { return ( <></> )};
 };
