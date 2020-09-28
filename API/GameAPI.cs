@@ -50,5 +50,42 @@ namespace API
         {
             return playerDict.ContainsKey(name);
         }
+
+        /*
+        * Has the voter (specified by the voterName) cast a vote on the target (specified by the targetName).
+        * Returns a bool[2] array, where the first bool value means if the vote was cast succesfully or not, and the second whether the day/night has ended or not.
+        */
+        public static bool[] Vote(string voterName, string targetName)
+        {
+            bool[] Return = new bool[] {false, false};
+            if(!(playerDict.ContainsKey(voterName) && playerDict.ContainsKey(targetName))){
+                return Return;
+            }
+            Player[] players = gameState.getPlayers();
+            Player voter = null;
+            Player target = null;
+            foreach(Player player in players)
+            {
+                if (player.getName().Equals(voterName)){
+                    voter = player;
+                } else if (player.getName().Equals(targetName)){
+                    target = player;
+                }
+            }
+            bool succesfullVote = gameState.castVote(voter, target);
+            if(!succesfullVote){
+                return Return;
+            } else {
+                Return[0] = true;
+            }
+            if(gameState.checkIfAllPlayersVoted()){
+                Player hangman = gameState.findHangman();
+                if(!(hangman == null)){
+                    Return[1] = true;
+                }
+                gameState.resetAllVotes();
+            }
+            return Return;
+        }
     }
 }

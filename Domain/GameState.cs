@@ -116,12 +116,15 @@ namespace Domain
             return roleArray;
         }
 
-        public void castVote(Player voter, Player target) {
+        public bool castVote(Player voter, Player target) {
             if(this.day && voter.checkPulse() && target.checkPulse() && (!voter.hasVoted())) {
                 voter.vote(target);
             } else if (voter.checkPulse() && target.checkPulse() && (!voter.hasVoted()) && voter.getRole().GetType().Equals(typeof(Werewolf))) {
                 voter.vote(target);
+            } else {
+                return false;
             }
+            return true;
         }
 
         public bool checkIfAllPlayersVoted() {
