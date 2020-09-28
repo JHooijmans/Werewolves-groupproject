@@ -18,7 +18,8 @@ namespace API.Hubs
 
         public async Task SendToAll(string connectionId, string message)
         {
-            await Clients.All.SendAsync("sendToAll", connectionId + ": " + message);
+            string name = GameAPI.getNameByID(connectionId);
+            await Clients.All.SendAsync("sendToAll", name + ": " + message + " ");
         }
 
         public bool addNewUser(string connectionId, string nickName)
@@ -33,9 +34,7 @@ namespace API.Hubs
             
             Console.WriteLine("key in gameAPI: " + GameAPI.containsKey(nickName));
             
-            // await Clients.Caller.SendAsync("nickNameReturn", nickNameTaken + nickName);
             
-            // TODO: Invert return bool.
             Console.WriteLine(GameAPI.getPlayerConnectionID(nickName));
             Console.WriteLine(nickName);
 
@@ -59,6 +58,14 @@ namespace API.Hubs
             if (GameAPI.getGameState() != null) {
                 await Clients.All.SendAsync("sendGameState", JsonProcessor.getWerewolfJson(GameAPI.getGameState()));
             }
+        }
+
+        public async Task sendVote(string connectionId, string target)
+        {
+            // Retrieve corresponding username from the given connectionID.
+            string voter = GameAPI.getNameByID(connectionId);
+            bool[] result = GameAPI.vote(voter, target);
+            await Clients.All.SendAsync("sendVote", result);
         }
     }
 }

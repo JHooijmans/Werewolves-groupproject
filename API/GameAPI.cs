@@ -51,11 +51,24 @@ namespace API
             return playerDict.ContainsKey(name);
         }
 
+        public static string getNameByID(string Id)
+        {
+            string name = null;
+            List<string> keyList = new List<string>(playerDict.Keys);
+            foreach(string key in keyList)
+            {
+                if(Id.Equals(playerDict[key])){
+                    name = key;
+                }
+            }
+            return name;
+        }
+
         /*
         * Has the voter (specified by the voterName) cast a vote on the target (specified by the targetName).
         * Returns a bool[2] array, where the first bool value means if the vote was cast succesfully or not, and the second whether the day/night has ended or not.
         */
-        public static bool[] Vote(string voterName, string targetName)
+        public static bool[] vote(string voterName, string targetName)
         {
             bool[] Return = new bool[] {false, false};
             if(!(playerDict.ContainsKey(voterName) && playerDict.ContainsKey(targetName))){
