@@ -23,9 +23,8 @@ namespace API.Hubs
 
         public bool addNewUser(string connectionId, string nickName)
         {
-            //hardcoded returnvalue; still missing implementation of collecting the nicknames and checking whether they're taken
-            bool nickNameTaken = true;
-            nickNameTaken = GameAPI.containsKey(nickName);
+
+            bool nickNameTaken = GameAPI.containsKey(nickName);
             Console.WriteLine("Nickname taken bool" + nickNameTaken);
 
             if (!nickNameTaken) {

@@ -3,7 +3,7 @@ import * as signalR from "@microsoft/signalr";
 import {Chat} from './components/chat/Chat';
 
 
-export function sendToAllTest (message: string) {
+export function sendToAllChat (message: string) {
   hubConnection.invoke("sendToAll", hubConnection.connectionId, message);
 };
 

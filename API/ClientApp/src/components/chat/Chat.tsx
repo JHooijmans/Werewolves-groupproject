@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import {sendToAllTest, hubConnection} from '../../ConnectionService';
+import {sendToAllChat, hubConnection} from '../../ConnectionService';
 
 
 export function Chat() {
@@ -20,7 +20,7 @@ export function Chat() {
 
     const handleMessage = () => {
         if (message != '') {
-            sendToAllTest(message);
+            sendToAllChat(message);
         };
         setMessage('');
     };
@@ -32,7 +32,7 @@ export function Chat() {
         onChange={e => setMessage(e.target.value)}
         maxLength={255}
         />
-        <button onClick={handleMessage}>Send It!</button><p>{messages}</p>
+        <button onClick={handleMessage}>Send!</button><p>{messages}</p>
         </>
     );
 };
